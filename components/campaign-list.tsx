@@ -23,14 +23,12 @@ export function CampaignList() {
   const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
   const [currentId, setCurrentId] = useState<number | null>(null);
   
-  // Kampanya sayısını oku
   const { data: campaignCount } = useReadContract({
     address: DONATION_CONTRACT_ADDRESS as `0x${string}`,
     abi: DONATION_ABI,
     functionName: "campaignCount",
   });
   
-  // Belirli bir kampanyayı oku
   const { data: campaignData } = useReadContract({
     address: DONATION_CONTRACT_ADDRESS as `0x${string}`,
     abi: DONATION_ABI,
@@ -41,17 +39,15 @@ export function CampaignList() {
     },
   });
   
-  // Kampanya sayısı geldiğinde sırayla kampanyaları oku
   useEffect(() => {
     if (!campaignCount) return;
     
     const count = Number(campaignCount);
     if (count > 0 && currentId === null) {
-      setCurrentId(1); // İlk kampanyayı oku
+      setCurrentId(1); 
     }
   }, [campaignCount, currentId]);
   
-  // Kampanya verisi geldiğinde işle ve bir sonraki kampanyaya geç
   useEffect(() => {
     if (!campaignData || currentId === null || !campaignCount) return;
     
@@ -71,7 +67,6 @@ export function CampaignList() {
       withdrawn
     }]);
     
-    // Tüm kampanyalar okunduysa loading'i kapat, değilse bir sonraki kampanyaya geç
     if (currentId >= count) {
       setLoading(false);
     } else {
@@ -79,7 +74,6 @@ export function CampaignList() {
     }
   }, [campaignData, currentId, campaignCount]);
   
-  // Filtreleme fonksiyonu
   const filteredCampaigns = campaigns.filter(campaign => {
     if (filter === "active") return campaign.active;
     if (filter === "completed") return !campaign.active || campaign.goalReached;

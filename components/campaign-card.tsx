@@ -41,7 +41,6 @@ export function CampaignCard({
     args: [campaignId],
   });
   
-  // Tip güvenliği için donasyon verisini işle
   const myDonation = myDonationData ? BigInt(String(myDonationData)) : null;
   
   const progress = calculateProgress(totalDonated, goal);

@@ -6,12 +6,10 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-// ETH değerini insan tarafından okunabilir formata dönüştürür (ethers kullanarak)
 export function formatEth(wei: bigint): string {
   return ethers.formatEther(wei.toString());
 }
 
-// Timestamp'ı insan tarafından okunabilir tarih formatına dönüştürür
 export function formatDate(timestamp: number): string {
   return new Date(timestamp * 1000).toLocaleDateString('tr-TR', {
     day: 'numeric',
@@ -22,7 +20,6 @@ export function formatDate(timestamp: number): string {
   });
 }
 
-// Kalan süreyi gün, saat, dakika olarak hesaplar
 export function getRemainingTime(endTime: number): string {
   const now = Math.floor(Date.now() / 1000);
   const remainingSeconds = endTime - now;
@@ -38,7 +35,6 @@ export function getRemainingTime(endTime: number): string {
   return `${days} gün, ${hours} saat, ${minutes} dakika`;
 }
 
-// İlerleme yüzdesini hesaplar (ethers kullanarak)
 export function calculateProgress(current: bigint, goal: bigint): number {
   if (goal === BigInt(0)) return 0;
   
@@ -48,7 +44,6 @@ export function calculateProgress(current: bigint, goal: bigint): number {
   return Number((currentEther * BigInt(100)) / goalEther);
 }
 
-// Adres kısaltma (ethers kullanarak)
 export function shortenAddress(address: string): string {
   return ethers.getAddress(address).substring(0, 6) + "..." + ethers.getAddress(address).slice(-4);
 }

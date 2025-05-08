@@ -25,9 +25,7 @@ export function CreateCampaign() {
     
     if (!formState.goal || !formState.duration) return;
     
-    // ETH'yi wei'ye dönüştür
     const goalInWei = ethers.parseEther(formState.goal);
-    // Gün cinsinden süreyi saniyeye dönüştür
     const durationInSeconds = parseInt(formState.duration) * 24 * 60 * 60;
     
     writeContract({
@@ -38,12 +36,10 @@ export function CreateCampaign() {
     });
   };
   
-  // İşlem başarılı ise başarı mesajını göster ve formu sıfırla
   useEffect(() => {
     if (isSuccess && formState.goal) {
       setShowSuccess(true);
       
-      // 3 saniye sonra başarı mesajını kapat ve formu kapat
       const timer = setTimeout(() => {
         setShowSuccess(false);
         setFormState({ goal: "", duration: "" });
